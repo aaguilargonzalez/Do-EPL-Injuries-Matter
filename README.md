@@ -1,7 +1,7 @@
 # Do EPL Injuries Matter?
 ## Ariel Aguilar Gonzalez
 
-This project uses historical Engligh Premier League (EPL) season-total results, performance statistics, and injuries to estimate the impact of injuries on teams over the course of a season. Using correlation plots, OLS regression and a simple cluster analysis, it appears that injuries don't have a significant impact on a team's season points total.
+This project uses historical Engligh Premier League (EPL) season-total results, performance statistics, and injuries to estimate the impact of injuries on teams over the course of a season. Using correlation plots, OLS regression and a simple cluster analysis, it appears that injuries don't have a significant impact on a team's season points total. In theory, reducing injuries can help a team gain more points, but because most teams suffer a host of injuries, their overall impact looks to be muted.
 
 Data on historical EPL tables was pulled from Wikipedia, performance statisitcs from Football-Data.co.uk and the Premier League official website, and injury data from Physio Room.
 
@@ -36,10 +36,10 @@ attach(Regression_Data)
 #-------------------------------------------#
 
 # Basic Summary Stats
-var(Pts)
-sd(Pts)
-var(Days.Lost.to.Injury)
-var(Number.of.Injuries)
+mean(Days.Lost.to.Injury)
+# 1001 days!
+mean(Number.of.Injuries)
+# 26 injuries!
 
 # Look at different correlations to help determine independent variables in regression
 cor(Pts, Tackles)
@@ -64,19 +64,16 @@ inj.pts + geom_point()+theme(legend.position="none")+ylab("Points")+
   ggtitle("Injuries and Points Don't Seem To Be Related?!")+
   annotate("text", x = 1900, y = 17, label = txt, fontface="bold",size=4) +
   annotate("text", x = 1900, y = 10, label = sources, fontface="bold",size=2.5)
+dev.copy(jpeg, 'injurycorr.jpeg')
+dev.off()
 
+# Let's make a histogram plot of injuries
 
-# Let's make a histogram plot of both points and injuries
-
-# Points
-p <- ggplot(data=Regression_Data, aes(Regression_Data$Pts)) + geom_histogram(aes(y=..density..))
-p + geom_density(col=2) +
-  labs(title="Histogram for Points") + labs(x="Points", y="Count") 
-  
-# Injuries
 inj <- ggplot(data=Regression_Data, aes(Regression_Data$Days.Lost.to.Injury)) + geom_histogram(aes(y=..density..))
 inj + geom_density(col=2) +
   labs(title="Histogram for Injuries") + labs(x="Days Lost to Injuries", y="Count")
+dev.copy(jpeg, 'injuryhist.jpeg')
+dev.off()
 
 # Look like they're normally distributed, especially given the small sample
 # Not important for OLS Regression but good to know, espcially for student's t test later
@@ -190,6 +187,8 @@ s3d <- scatterplot3d(x=x1,y=x2,z=y,color="white", main="OLS Model for EPL Perfor
 s3d$plane3d(reg.model.8, draw_polygon = TRUE, polygon_args=list(border=NA, col="aliceblue"))
 s3d$points3d(x=x1,y=x2,z=y,col="red", pch=20)
 # SO COOL!!
+dev.copy(jpeg, 'regvis.jpeg')
+dev.off()
 
 #-------------------------------------------#
 #            Analysis by Group              #
