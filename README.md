@@ -66,7 +66,10 @@ inj.pts + geom_point()+theme(legend.position="none")+ylab("Points")+
   annotate("text", x = 1900, y = 10, label = sources, fontface="bold",size=2.5)
 dev.copy(jpeg, 'injurycorr.jpeg')
 dev.off()
+```
+![Injury Correlation Plot](https://aaguilargonzalez.github.io/Do-EPL-Injuries-Matter/injurycorr.jpeg)
 
+```R
 # Let's make a histogram plot of injuries
 
 inj <- ggplot(data=Regression_Data, aes(Regression_Data$Days.Lost.to.Injury)) + geom_histogram(aes(y=..density..))
@@ -74,7 +77,10 @@ inj + geom_density(col=2) +
   labs(title="Histogram for Injuries") + labs(x="Days Lost to Injuries", y="Count")
 dev.copy(jpeg, 'injuryhist.jpeg')
 dev.off()
+```
+![Injury Histogram Plot](https://aaguilargonzalez.github.io/Do-EPL-Injuries-Matter/injuryhist.jpeg)
 
+```R
 # Look like they're normally distributed, especially given the small sample
 # Not important for OLS Regression but good to know, espcially for student's t test later
 
@@ -189,7 +195,10 @@ s3d$points3d(x=x1,y=x2,z=y,col="red", pch=20)
 # SO COOL!!
 dev.copy(jpeg, 'regvis.jpeg')
 dev.off()
+```
+![Regression Visualization Plot](https://aaguilargonzalez.github.io/Do-EPL-Injuries-Matter/regvis.jpeg)
 
+```R
 #-------------------------------------------#
 #            Analysis by Group              #
 #-------------------------------------------#
@@ -257,5 +266,5 @@ Injury_Groups <- ggplot(Regression_Data, aes(x=Days.Lost.to.Injury, y=Pts)) +
 Injury_Groups
 dev.copy(jpeg, 'injurygroups.jpeg')
 dev.off()
-
 ```
+![Injury Cluster Plot](https://aaguilargonzalez.github.io/Do-EPL-Injuries-Matter/injurygroups.jpeg)
